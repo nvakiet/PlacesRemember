@@ -14,3 +14,6 @@ sqlparse==0.4.3
     # via django
 psycopg2==2.9.3 # PostgreSQL integration with Django
 social-auth-app-django==5.0.0 # Django middleware to login with Facebook
+# For server deployment
+gunicorn==20.1.0
+uvicorn==0.20.0

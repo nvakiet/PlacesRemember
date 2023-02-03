@@ -67,6 +67,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -109,8 +111,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Account authentication backends
 AUTHENTICATION_BACKENDS = [
-  'social_core.backends.facebook.FacebookOAuth2',
-  'django.contrib.auth.backends.ModelBackend'
+    'social_core.backends.facebook.FacebookOAuth2',
+    'django.contrib.auth.backends.ModelBackend'
 ]
 
 
@@ -129,12 +131,27 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / "../static"
 MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# SOCIAL-AUTH PACKAGE SETTINGS
+SOCIAL_AUTH_FACEBOOK_KEY = os.getenv("SOCIAL_AUTH_FACEBOOK_KEY")
+SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv("SOCIAL_AUTH_FACEBOOK_SECRET")
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
+    'fields': 'id, name, picture.type(large)'
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
+    ('name', 'name'),
+    ('picture', 'picture'),
+]
+LOGIN_REDIRECT_URL = "place_memories:home"
+LOGIN_URL = "place_memories:home"
+LOGOUT_URL = "logout"
+LOGOUT_REDIRECT_URL = ""
