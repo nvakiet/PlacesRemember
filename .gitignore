@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
 
+# Mkcert for local development SSL certificates
+mkcert.exe
+*.pem
+
 ### Django ###
 *.log
 *.pot
