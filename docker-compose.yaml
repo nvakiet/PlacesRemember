@@ -5,6 +5,7 @@ services:
     image: postgres
     container_name: postgres
     restart: unless-stopped
+    # since everything is run in docker containers in the same network, no need to forward the port
     ports:
       - "${DJANGO_DB_PORT}:5432/tcp"
     volumes:
@@ -21,15 +22,16 @@ services:
     ports:
       - "8081:8080"
 
-  web:
+  webapp:
     container_name: webapp
     build: ./places_remember
     # command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - ./places_remember:/code
       - ./static:/static
-    ports:
-      - "8000:8000"
+    # since everything is run in docker containers in the same network, no need to forward the port
+    # ports:
+    #   - "8000:8000"
     env_file:
       - .env
     depends_on:
@@ -46,13 +48,13 @@ services:
       NGINX_HOST: "${NGINX_HOST}"
       SSL_KEY_PATH: "${SSL_KEY_PATH}"
       SSL_CERT_PATH: "${SSL_CERT_PATH}"
-      NGINX_ENVSUBST_OUTPUT_DIR: "/etc/nginx"
+      # NGINX_ENVSUBST_OUTPUT_DIR: "/etc/nginx"
     volumes:
         - ./nginx_templates:/etc/nginx/templates
         - ./static:/static
         - ./certs:/certs
     depends_on:
-      - web
+      - webapp
 
 volumes:
   postgresData:
