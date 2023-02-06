@@ -20,6 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load .env file
 load_dotenv(BASE_DIR / "../.env")
 
+# Get deployment mode from environment settings
+# DEV = development mode, PROD = production mode
+mode = os.getenv("DEPLOY_MODE", "DEV")
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
@@ -27,9 +31,11 @@ load_dotenv(BASE_DIR / "../.env")
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "secret")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = mode == "DEV"
 
 ALLOWED_HOSTS = []
+if mode == "PROD":
+    ALLOWED_HOSTS.append("*")
 
 # Application definition
 
@@ -45,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -52,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'places_remember.urls'
@@ -89,6 +97,14 @@ DATABASES = {
         'PORT': os.getenv("DJANGO_DB_PORT")
     }
 }
+
+if mode == "DEV":
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+            'TIMEOUT': 0,
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -142,6 +158,7 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # SOCIAL-AUTH PACKAGE SETTINGS
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 SOCIAL_AUTH_FACEBOOK_KEY = os.getenv("SOCIAL_AUTH_FACEBOOK_KEY")
 SOCIAL_AUTH_FACEBOOK_SECRET = os.getenv("SOCIAL_AUTH_FACEBOOK_SECRET")
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
@@ -152,6 +169,4 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
     ('picture', 'picture'),
 ]
 LOGIN_REDIRECT_URL = "place_memories:home"
-LOGIN_URL = "place_memories:home"
-LOGOUT_URL = "logout"
-LOGOUT_REDIRECT_URL = ""
+LOGOUT_REDIRECT_URL = "place_memories:home"

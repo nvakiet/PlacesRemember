@@ -10,5 +10,7 @@ from . import views
 app_name = 'place_memories'
 
 urlpatterns = [
-    path('', views.home, name='home')
+    path('', views.home, name='home'),
+    path('your-memories', views.UserMemoriesView.as_view(), name='user_memories'),
+    path('add-memory', views.UserMemoriesView.as_view(), name='add_memory')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
