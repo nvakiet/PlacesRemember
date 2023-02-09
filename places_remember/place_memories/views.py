@@ -1,18 +1,30 @@
 """This module contains the views of place_memories web app.
 """
-from django.shortcuts import render
-from django.views.generic import ListView
-from .models import UserMemories
-from django.contrib.postgres.search import SearchVector
+import logging
 from urllib.parse import unquote
+from django.conf import settings
+from django.shortcuts import render, redirect
+from django.views.generic import ListView
+from django.views import View
+from django.contrib import messages
+from django.contrib.postgres.search import SearchVector
+from django.http import HttpRequest, HttpResponse
+from .models import UserMemories
+from .forms import AddMemoryForm
 
-# Create your views here.
-def home(requests):
+logger = logging.getLogger(__name__)
+
+# Homepage
+def home(request: HttpRequest):
     """Render the homepage of the app.
     """
-    return render(requests, "place_memories/home.html")
+    return render(request, "place_memories/home.html")
 
+# User memories list
 class UserMemoriesView(ListView):
+    """Return a paginated list of user memories to the template.
+    The result can be filtered by text (in the address, placename, comment fields), and sorted by placename and datetime.
+    """
     model = UserMemories
     paginate_by = 5
     template_name = "place_memories/user_memories.html"
@@ -40,3 +52,38 @@ class UserMemoriesView(ListView):
                 search=SearchVector("placename", "address", "comment")
             ).filter(search=search_value)
         return queryset
+    
+# "Add memory" page
+class AddMemoryView(View):
+    """Render a template that embed a Google Map to let the user
+    select a location on the map to add to the memory database.
+    """
+    form_class = AddMemoryForm
+    template_name = "place_memories/add_memory.html"
+    
+    def get(self, request: HttpRequest, *args, **kwargs):
+        form = self.form_class()
+        context = {
+            "GOOGLE_API_KEY": settings.GOOGLE_API_KEY,
+            "form": form
+        }
+        return render(request, self.template_name, context)
+    
+    def post(self, request: HttpRequest, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            try:
+                data = form.cleaned_data
+                # UserMemories.objects.create(user=request.user, address=data["address"], placename=data["placename"], comment=data["comment"])
+                UserMemories.objects.create(user=request.user, **data)
+                messages.add_message(request, messages.SUCCESS, "Successfully added new memory!")
+            except Exception as ex:
+                logger.exception(f"Failed to add object to UserMemories model: {str(ex)}")
+                messages.add_message(request, messages.ERROR, "Failed to add memory! An error has occurred on the server side.")
+            return redirect("place_memories:user_memories")
+        else:
+            messages.add_message(request, messages.ERROR, "Invalid inputs. Please try again!")
+            context = {
+                "form": form
+            }
+            return render(request, self.template_name, context)
