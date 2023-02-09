@@ -8,7 +8,7 @@ from django.views.generic import ListView
 from django.views import View
 from django.contrib import messages
 from django.contrib.postgres.search import SearchVector
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest
 from .models import UserMemories
 from .forms import AddMemoryForm
 

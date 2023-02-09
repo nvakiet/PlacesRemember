@@ -53,7 +53,7 @@ server {
   proxy_cache app_cache;
   proxy_cache_key $scheme://$host$request_uri$is_args$query_string;
   proxy_cache_valid 200 10m;
-  proxy_cache_bypass $arg_should_bypass_cache;
+  proxy_cache_bypass $arg_bypass_cache; # Do not use cache value if the request has query parameter "bypass_cache"
   proxy_cache_use_stale error timeout invalid_header updating http_500 http_502 http_503 http_504 http_429;
   proxy_cache_lock on;
 }
