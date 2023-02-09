@@ -3,6 +3,8 @@ This is a simple website for keeping notes about places you have visited. The we
 
 I made this website to practice web development using a basic web stack of: Django, Uvicorn/Gunicorn, Nginx and Docker.  
 
+**Demo video:**  [https://youtu.be/eAZiFpQVDHQ](https://youtu.be/eAZiFpQVDHQ)
+
 ## 1. Setup
 Simply clone this repository (or use the sources in Release) to starting using it.  
 ### a. SSL certificate
