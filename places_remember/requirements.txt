@@ -17,4 +17,5 @@ social-auth-app-django==5.0.0 # Django middleware to login with Facebook
 # For server deployment
 gunicorn==20.1.0
 uvicorn==0.20.0
-django-map-widgets==0.4.1
+# For tweaking Django forms in templates
+django-widget-tweaks==1.4.12
