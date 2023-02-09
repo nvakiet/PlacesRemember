@@ -42,7 +42,11 @@ server {
   }
 
   location /static {
-    alias /static/;
+    alias /static;
+  }
+
+  location /media {
+    alias /media;
   }
 
   # Set proxy cache
