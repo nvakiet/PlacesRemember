@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import mimetypes
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +29,7 @@ mode = os.getenv("DEPLOY_MODE", "DEV")
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "secret")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "ThisIsASecretKeyForDjangoServer")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = mode == "DEV"
@@ -36,6 +37,15 @@ DEBUG = mode == "DEV"
 ALLOWED_HOSTS = []
 if mode == "PROD":
     ALLOWED_HOSTS.append("*")
+
+# Enable these settings once HTTPS is set up
+if mode == "PROD":
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_PRELOAD = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    SECURE_SSL_REDIRECT = True
 
 # Application definition
 
@@ -47,6 +57,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'widget_tweaks',
     'place_memories'
 ]
 
@@ -147,10 +158,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "../static"
+STATIC_URL = 'static/'
+STATIC_ROOT = "/static"  # The path of the static volume in docker container
 MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
-MEDIA_URL = '/media/'
+MEDIA_URL = 'media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -170,3 +181,6 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [
 ]
 LOGIN_REDIRECT_URL = "place_memories:home"
 LOGOUT_REDIRECT_URL = "place_memories:home"
+
+# Google Embedded Map API Key
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "YOUR_API_KEY")
