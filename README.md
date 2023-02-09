@@ -57,7 +57,7 @@ export N_UVICORN_WORKERS=4
 ```   
 
 ### d. Nginx configurations  
-Nginx is used here to reverse proxy and caching proxy responses for HTTPS. You can tinker with the Nginx configurations if needed. The configuration files are placed in the `nginx_templates` folder. Within that folder, the `nginx.conf` and `default.conf.template` are for overriding the default configurations within the Nginx container for easier debugging during development without having to tap into the container terminal. The main configurations are in `nginx.conf.template`.
+Nginx is used here to reverse proxy and cache proxy responses for HTTPS. You can tinker with the Nginx configurations if needed. The configuration files are placed in the `nginx_templates` folder. Within that folder, the `nginx.conf` and `default.conf.template` are for overriding the default configurations within the Nginx container for easier debugging during development without having to tap into the container terminal. The main configurations are in `nginx.conf.template`.
 
 Also since the `media` folder is ignored when pushing to git. You should create one at the project root for the Nginx container to bind a volume to in case the container doesn't create it automatically.
 
