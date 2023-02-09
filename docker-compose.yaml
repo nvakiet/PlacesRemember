@@ -6,8 +6,8 @@ services:
     container_name: postgres
     restart: unless-stopped
     # since everything is run in docker containers in the same network, no need to forward the port
-    ports:
-      - "${DJANGO_DB_PORT}:5432/tcp"
+    # ports:
+    #   - "${DJANGO_DB_PORT}:5432/tcp"
     volumes:
       - postgresData:/var/lib/postgresql/data
     environment:
@@ -50,6 +50,7 @@ services:
       SSL_CERT_PATH: "${SSL_CERT_PATH}"
       # NGINX_ENVSUBST_OUTPUT_DIR: "/etc/nginx"
     volumes:
+        - ./nginx_templates/nginx.conf:/etc/nginx/nginx.conf
         - ./nginx_templates:/etc/nginx/templates
         - ./static:/static
         - ./certs:/certs
