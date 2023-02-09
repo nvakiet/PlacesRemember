@@ -101,6 +101,21 @@
             <!-- Navbar -->
         </header>
 
+        {% comment %} Dissmissible message box after redirection {% endcomment %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {% if message.level_tag != 'success' %} alert-danger {% else %} alert-success {% endif %} alert-dismissible fade show"
+                     role="alert"
+                     id="message_alert"
+                     style="display: block">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+
         {% comment %} Dismissible alert box {% endcomment %}
         <div class="alert alert-danger alert-dismissible fade show"
              role="alert"
@@ -160,11 +175,11 @@
 
                 <div class="col d-flex justify-content-end">
                     {% comment %} Add memory button {% endcomment %}
-                    <button class="btn btn-primary my-2 my-sm-0"
+                    <a class="btn btn-primary my-2 my-sm-0"
                             type="button"
                             href="{% url 'place_memories:add_memory' %}">
                         <strong>ADD A MEMORY</strong>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

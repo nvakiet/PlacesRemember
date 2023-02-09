@@ -38,5 +38,13 @@ function get_user_memories(link, page=0) {
 $(function () {
     $(document).on('click', '.alert-close', function () {
         $(this).parent().hide();
-    })
+    });
+
+    // Set a timeout close event for message alerts after redirection
+    var message_alert = $("#message_alert");
+    if (message_alert) {
+        setTimeout(function () {
+            message_alert.alert("close");
+        }, 5000);
+    }
 });
