@@ -64,7 +64,7 @@
                                aria-haspopup="true"
                                aria-expanded="false">
                                 {% if not user.is_authenticated %}
-                                    <img src="{% static 'media/user.png' %}"
+                                    <img src="{% static 'place_memories/img/user.png' %}"
                                          class="rounded-circle"
                                          height="25"
                                          loading="lazy"/>
@@ -288,6 +288,6 @@
                 crossorigin="anonymous"></script>
 
         {% comment %} Scripts {% endcomment %}
-        <script src="{% static 'place_memories/user_memories.js' %}"></script>
+        <script src="{% static 'place_memories/js/user_memories.js' %}"></script>
     </body>
 </html>
