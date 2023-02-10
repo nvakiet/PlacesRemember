@@ -65,7 +65,29 @@ Also since the `media` folder is ignored when pushing to git. You should create 
 
 Read the [Nginx Docker Guide](https://hub.docker.com/_/nginx) for more details on how the configuration template works.
 
-## 2. Running the server  
+## 2. Unit testing
+In the Django server, there are unit tests for the "User memories" page and "Add memory" page. These are tests to be run in development mode. I have created some test data fixture in `place_memories/fixtures`. Simply use the Django management command to run the tests.  
+
+```bash
+# set DEPLOY_MODE=DEV in the .env file
+# Run the docker compose
+docker compose up -d
+# Go to the container terminal of the webapp then run
+python manage.py test
+```
+
+Or if you want to run the tests outside of the docker terminal:
+
+```bash
+# set DEPLOY_MODE=DEV 
+# set DJANGO_DB_HOST=localhost
+# Run only the database container
+docker compose up -d postgres adminer
+# Then run the tests from outside of docker
+python manage.py test
+```
+
+## 3. Running the server  
 All components of the web application are contained inside Docker containers. Simply run the whole stack using Docker Compose from the project root:  
 
 ```
