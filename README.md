@@ -6,7 +6,7 @@ I made this website to practice web development using a basic web stack of: Djan
 **Demo video:**  [https://youtu.be/eAZiFpQVDHQ](https://youtu.be/eAZiFpQVDHQ)
 
 ## 1. Setup
-Simply clone this repository (or use the sources in Release) to starting using it.  
+Simply clone this repository (or use the sources in Release) to start using it.  
 ### a. SSL certificate
 The web app has been configured to run on HTTPS protocol due to Facebook API requirement so you need an SSL certificate. If you already have a domain name for your public IP (such as [NoIP](https://www.noip.com/) domains), you can use [Let's Encrypt](https://letsencrypt.org/) + [Certbot](https://certbot.eff.org/) to get free SSL certification for your domain. If you want to run on a local development environment (i.e localhost), you can use [mkcert](https://github.com/FiloSottile/mkcert) to make a self-signed certification.  
 
