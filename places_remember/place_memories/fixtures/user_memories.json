@@ -1,0 +1,112 @@
+[
+    {
+        "model": "place_memories.usermemories",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "placename": "Big-C Market",
+            "address": "To Hien Thanh, District 10",
+            "comment": "Big supermarket, air-conditioner, nice sale.",
+            "datetime": "2023-02-05T19:45:14.608Z"
+        }
+    },
+    {
+        "model": "place_memories.usermemories",
+        "pk": 2,
+        "fields": {
+            "user": 1,
+            "placename": "Big-C Market",
+            "address": "To Hien Thanh, District 10",
+            "comment": "Today has a big sale.",
+            "datetime": "2023-02-05T20:38:53.024Z"
+        }
+    },
+    {
+        "model": "place_memories.usermemories",
+        "pk": 3,
+        "fields": {
+            "user": 1,
+            "placename": "Ben Thanh Market",
+            "address": "District 1",
+            "comment": "Lots of westerner here",
+            "datetime": "2023-02-05T20:40:14.349Z"
+        }
+    },
+    {
+        "model": "place_memories.usermemories",
+        "pk": 4,
+        "fields": {
+            "user": 1,
+            "placename": "Ben Thanh Market",
+            "address": "District 1",
+            "comment": "Lots of asians today",
+            "datetime": "2023-02-05T20:40:56.916Z"
+        }
+    },
+    {
+        "model": "place_memories.usermemories",
+        "pk": 5,
+        "fields": {
+            "user": 1,
+            "placename": "Dien Hong School",
+            "address": "District 10",
+            "comment": "My highschool back in the days.",
+            "datetime": "2023-02-05T20:42:16.800Z"
+        }
+    },
+    {
+        "model": "place_memories.usermemories",
+        "pk": 6,
+        "fields": {
+            "user": 1,
+            "placename": "University of Science",
+            "address": "Nguyen Van Cu, District 5",
+            "comment": "My university. I'm still a student here.",
+            "datetime": "2023-02-05T20:43:27.416Z"
+        }
+    },
+    {
+        "model": "place_memories.usermemories",
+        "pk": 7,
+        "fields": {
+            "user": 1,
+            "placename": "My home",
+            "address": "027C, An Quang Apartment, District 10",
+            "comment": "This is my home. I have lived here for 20 years.",
+            "datetime": "2023-02-05T20:44:09.548Z"
+        }
+    },
+    {
+        "model": "place_memories.usermemories",
+        "pk": 8,
+        "fields": {
+            "user": 1,
+            "placename": "University of Science",
+            "address": "Nguyen Van Cu, District 5",
+            "comment": "Today is the day I graduate.",
+            "datetime": "2023-02-05T20:45:16.808Z"
+        }
+    },
+    {
+        "model": "place_memories.usermemories",
+        "pk": 9,
+        "fields": {
+            "user": 1,
+            "placename": "My Girlfriend House",
+            "address": "District 5",
+            "comment": "First time I meet her parents.",
+            "datetime": "2023-02-05T20:46:24.342Z"
+        }
+    },
+    {
+        "model": "place_memories.usermemories",
+        "pk": 10,
+        "fields": {
+            "user": 1,
+            "placename": "An Quang Pagoda",
+            "address": "Ba Hat, District 10",
+            "comment": "My family usually visits here.",
+            "datetime": "2023-02-05T20:47:04.062Z"
+        }
+    }
+]
