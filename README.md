@@ -84,6 +84,7 @@ Or if you want to run the tests outside of the docker terminal:
 # Run only the database container
 docker compose up -d postgres adminer
 # Then run the tests from outside of docker
+cd places_remember
 python manage.py test
 ```
 
